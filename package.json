@@ -1,0 +1,58 @@
+{
+  "name": "english-for-kids",
+  "version": "1.0.0",
+  "description": "English for kids",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open --config ./build/webpack.dev.conf.js",
+    "build": "webpack --open --config ./build/webpack.build.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nastya07s/event-archive.git"
+  },
+  "keywords": [
+    "webpack",
+    "english",
+    "sass"
+  ],
+  "browserslist": [
+    "> 1%",
+    "last 3 version"
+  ],
+  "author": "Nastya07s",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nastya07s/event-archive/issues"
+  },
+  "homepage": "https://github.com/Nastya07s/event-archive#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "autoprefixer": "^9.7.6",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.1",
+    "cssnano": "^4.1.10",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-loader": "^4.0.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.0",
+    "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "prettier": "^2.0.2",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
+  }
+}
