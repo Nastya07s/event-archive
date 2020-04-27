@@ -37,7 +37,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.js$/,
-      use: ['babel-loader', 'eslint-loader'],
+      use: ['babel-loader'/*, 'eslint-loader'*/],
       exclude: '/node_modules/',
     }, {
       test: /\.(png|jpg|gif|svg)$/,
@@ -85,6 +85,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATH.src}/index.html`,
       filename: './index.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATH.src}/articles.html`,
+      filename: './articles.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATH.src}/article.html`,
+      filename: './article.html',
     }),
     new CopyWebpackPlugin([
       { from: `${PATH.src}/img`, to: `${PATH.assets}/img` },
