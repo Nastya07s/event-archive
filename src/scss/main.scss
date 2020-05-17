@@ -18,6 +18,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.d-none {
+  display: none;
+}
+
 .flex {
   display: flex;
 }
@@ -79,6 +83,7 @@ body {
 
   &__aside {
     margin-left: 30px;
+    padding: 10px;
   }
 }
 
@@ -191,6 +196,9 @@ body {
   &__title {
     font-size: 25px;
     padding: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__img {
@@ -211,22 +219,120 @@ body {
 
   &__desc {
     padding: 0 30px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__continue {
     padding: 0 30px;
+    white-space: nowrap;
   }
 }
 
 .aside {
   border: 1px solid grey;
-  background-color: rgb(248, 248, 248);
+  // background-color: rgb(248, 248, 248);
   width: 20%;
+
   height: fit-content;
 
+  label {
+    display: block;
+  }
+
+  &__search {
+    position: relative;
+    padding-top: 10px;
+    margin-bottom: 20px;
+
+    img {
+      position: absolute;
+      left: 5px;
+      top: 15px;
+    }
+  }
+
+  &__input {
+    width: calc(100% - 30px);
+    height: 20px;
+    padding-left: 25px;
+  }
+
+  form{
+    flex-direction: column;
+  }
+
+  fieldset {
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border: 1.5px solid grey;
+
+    label {
+      margin-bottom: 5px;
+    }
+  }
+
+  .tab input,
+  .tab-content {
+    display: none;
+  }
+
+  .tab :checked~.tab-content {
+    display: block;
+  }
+
   &__item {
-    border-bottom: 1px solid grey;
-    padding: 20px 10px;
+    padding: 10px;
+  }
+
+  .tab {
+    position: relative;
+
+    label {
+      cursor: pointer;
+    }
+
+    label::after {
+      content: '▼';
+      position: absolute;
+      right: 10px;
+    }
+  }
+
+  .tab :checked+label::after {
+    content: '▲';
+  }
+
+  .tab-content {
+    ul {
+      margin-top: 10px;
+      list-style-type: none;
+    }
+
+    li {
+      margin-left: 5px;
+
+      a {
+        color: blue;
+      }
+    }
+  }
+
+  &__button{
+    border: none;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 5px;
+    margin-top: 10px;
+    justify-self: center;
+    cursor: pointer;
+
+    &:hover{
+      filter: invert(100%)
+    }
   }
 }
 

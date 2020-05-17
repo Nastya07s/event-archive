@@ -16,6 +16,8 @@ module.exports = {
   },
   entry: {
     app: PATH.src,
+    articles: `${PATH.src}/js/articles`,
+    article: `${PATH.src}/js/article`,    
   },
   output: {
     filename: `${PATH.assets}/js/[name].[hash].js`,
@@ -85,14 +87,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATH.src}/index.html`,
       filename: './index.html',
+      chunks: ['app']
     }),
     new HtmlWebpackPlugin({
       template: `${PATH.src}/articles.html`,
       filename: './articles.html',
+      chunks: ['articles']
     }),
     new HtmlWebpackPlugin({
       template: `${PATH.src}/article.html`,
       filename: './article.html',
+      chunks: ['article']
     }),
     new CopyWebpackPlugin([
       { from: `${PATH.src}/img`, to: `${PATH.assets}/img` },
