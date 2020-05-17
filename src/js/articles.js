@@ -1,5 +1,7 @@
 import '../scss/main.scss';
 
+const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май',	'Июнь',	'Июль', 'Август', 'Сентябрь',	'Октябрь', 'Ноябрь', 'Декабрь']
+
 console.log(`http://event-archive/index.php/articles${window.location.search}`);
 let data = fetch(`http://event-archive/server/index.php/articles${window.location.search}`)
   .then(response => response.json())
@@ -15,13 +17,13 @@ function createHtml(data) {
     if (!yearInObjFl) {
       let temp = {
         year: el.year,
-        month: [el.month]
+        month: [months[el.month - 1]]
       };
       date.push(temp);
     } else {
-      yearInObjFl.month.push(el.month)
+      yearInObjFl.month.push(months[el.month - 1]);
     }
-
+    console.log(date);
     // date.push(obj)
     // date[i].year = el.year;
     // date[i].month = ;
@@ -38,14 +40,32 @@ function createHtml(data) {
       </div>`;
   });
 
-  // let match = /=/g.exec(window.location.search);
-  // console.log(window.location.search);
-  // if (!match ||  match.length === 1) {
-  //   let aside = document.querySelector('.aside')
-  //   date.forEach(el => {
-  //     aside.innerHTML += `<a href="articles.html?idtype=2&year=${el.year}" class="aside__item">${el.year}</a>`; //поправить с типом и здесь и в беке
-  //   })
-  // }
+  let match = /=/g.exec(window.location.search);
+  console.log(window.location.search);
+  if (!match ||  match.length === 1) {
+    const sortBtn = document.querySelector('.aside__button')
+    date.forEach(({ year, month}) => {
+      const yearItem = document.createElement('div');
+      yearItem.classList.add('aside__item', 'tab');
+      yearItem.innerHTML = `
+        <input id="${year}" type="checkbox">
+        <label for="${year}">${year}</label>
+      `;
+      let str = '';
+      month.forEach((el) => {
+        str += `<li><a href="#">${el}</a></li>`;
+      });
+      const tabContent = document.createElement('section');
+      tabContent.classList.add('tab-content');
+      const listOfMonths = document.createElement('ul');
+      listOfMonths.classList.add('flex');
+      listOfMonths.innerHTML = str ;
+      tabContent.append(listOfMonths);
+      yearItem.append(tabContent);
+      sortBtn.before(yearItem);
+      // console.log(yearItem.querySelector('.flex'));
+    })
+  }
 }
 
 function yearInObj(year, date) {
