@@ -108,16 +108,15 @@ const createStringForQuerries = (str, el) => {
 }
 
 const createArrayQueriesFromString = (index) => {
-  // let str ='[';
   let str = '';
-  document.querySelectorAll(`fieldset:nth-child(${index}) input`).forEach((el) => str = createStringForQuerries(str, el));
 
+  document.querySelectorAll(`fieldset:nth-child(${index}) input`).forEach((el) => str = createStringForQuerries(str, el));
   str = str.slice(0, str.length - 1);
-  // str += (str) ? ']' : '[]';
+
   return str;
 }
 
-document.querySelector('form').addEventListener('submit', async (event) => {
+document.getElementById('formSort').addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const classes = createArrayQueriesFromString(1);
@@ -128,6 +127,26 @@ document.querySelector('form').addEventListener('submit', async (event) => {
   let data = fetch(`http://event-archive/server/index.php/articles.php?class=${classes}&place=${places}&type=${type}`)
     .then(response => response.json())
     .then(createHtml);
+});
+
+document.getElementById('formSearch').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const searchValue = document.getElementById('search').value;
+
+  console.log(`http://event-archive/server/index.php/articles.php?search=${searchValue}`);
+  let data = fetch(`http://event-archive/server/index.php/articles.php?search=${searchValue}`)
+    .then(response => response.json())
+    .then(createHtml);
+
+  // const classes = createArrayQueriesFromString(1);
+  // const places = createArrayQueriesFromString(2);
+  // const type = createArrayQueriesFromString(3);
+
+  // console.log(`http://event-archive/server/index.php/articles.php?class=${classes}&place=${places}&type=${type}`);
+  // let data = fetch(`http://event-archive/server/index.php/articles.php?class=${classes}&place=${places}&type=${type}`)
+  //   .then(response => response.json())
+  //   .then(createHtml);
 });
 
 /*
