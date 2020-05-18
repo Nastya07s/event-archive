@@ -31,14 +31,11 @@
     <div class="wrapper main__body flex">
       <section class="articles">
       </section>
-      <aside class="main__aside aside">
-        <div class="aside__search">
-          <img src="assets/img/magnifier.svg" alt="" height="15">
-          <label for="search">
-            <input class="aside__input" type="text" placeholder="Поиск по названию..." id="search">
-          </label>
+      <aside class="main__aside">
+        <div class="aside">
+          
         </div>
-        <form action="" class="flex">
+        <form action="" class="aside flex" method="get">
           <fieldset>
             <legend>Классы</legend>
             <label for="primary">
@@ -54,6 +51,33 @@
               9 - 11 класс
             </label>
           </fieldset>
+          <fieldset>
+            <legend>Место проведения</legend>
+            <label for="inside">
+              <input type="checkbox" id="inside">
+              В учреждении образования
+            </label>
+            <label for="outside">
+              <input type="checkbox" id="outside">
+              За пределами учреждения образования
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Тип мероприятий</legend>
+            <label for="training">
+              <input type="checkbox" id="training">
+              Учебно-воспитательные
+            </label>
+            <label for="hobby">
+              <input type="checkbox" id="hobby">
+              Досуговые
+            </label>
+            <label for="sport">
+              <input type="checkbox" id="sport">
+              Спортивно-оздоровительные
+            </label>
+          </fieldset>
+          <button class="aside__button">Отсортировать</button>
           <!-- <div class="aside__item tab">
             
             <input id="2020" type="checkbox">
@@ -95,9 +119,12 @@
           </div> -->
           <!-- <input id="2019" class="aside__item" type="checkbox">2019</ш>
           <input id="2018" class="aside__item" type="checkbox">2018</ш> -->
-          <button class="aside__button" type="submit">Отсортировать</button>
+
         </form>
       </aside>
+      <!-- <aside class="main__aside aside">
+        
+      </aside> -->
 
     </div>
   </main>

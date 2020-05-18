@@ -82,8 +82,11 @@ body {
   }
 
   &__aside {
-    margin-left: 30px;
-    padding: 10px;
+    flex-direction: column;
+
+    form {
+      flex-direction: column;
+    }
   }
 }
 
@@ -238,6 +241,10 @@ body {
 
   height: fit-content;
 
+  margin-left: 30px;
+  margin-bottom: 10px;
+  padding: 10px;
+
   label {
     display: block;
   }
@@ -258,10 +265,6 @@ body {
     width: calc(100% - 30px);
     height: 20px;
     padding-left: 25px;
-  }
-
-  form{
-    flex-direction: column;
   }
 
   fieldset {
@@ -321,7 +324,7 @@ body {
     }
   }
 
-  &__button{
+  &__button {
     border: none;
     background-color: #fff;
     border: 1px solid black;
@@ -331,7 +334,7 @@ body {
     justify-self: center;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
       filter: invert(100%)
     }
   }

@@ -1,4 +1,3 @@
-// import './js/main';
 import './scss/main.scss';
 
 let data = fetch('http://event-archive/server/index.php')

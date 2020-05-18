@@ -1,9 +1,14 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import '../scss/main.scss';
 
-const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май',	'Июнь',	'Июль', 'Август', 'Сентябрь',	'Октябрь', 'Ноябрь', 'Декабрь']
+const sortBtn = document.querySelector('.aside__button');
 
-console.log(`http://event-archive/index.php/articles${window.location.search}`);
-let data = fetch(`http://event-archive/server/index.php/articles${window.location.search}`)
+const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+console.log(`http://event-archive/server/index.php/articles.php${window.location.search}`);
+let data = fetch(`http://event-archive/server/index.php/articles.php${window.location.search}`)
   .then(response => response.json())
   .then(createHtml);
 
@@ -13,6 +18,8 @@ function createHtml(data) {
   articles.innerHTML = '';
   let date = [];
   data.forEach((el, i) => {
+    console.log('el: ', el);
+
     let yearInObjFl = yearInObj(el.year, date)
     if (!yearInObjFl) {
       let temp = {
@@ -23,7 +30,7 @@ function createHtml(data) {
     } else {
       yearInObjFl.month.push(months[el.month - 1]);
     }
-    console.log(date);
+    // console.log(date);
     // date.push(obj)
     // date[i].year = el.year;
     // date[i].month = ;
@@ -40,32 +47,50 @@ function createHtml(data) {
       </div>`;
   });
 
+  console.log(date);
+  // if (window.location.search.length < 2) {
   let match = /=/g.exec(window.location.search);
-  console.log(window.location.search);
-  if (!match ||  match.length === 1) {
-    const sortBtn = document.querySelector('.aside__button')
-    date.forEach(({ year, month}) => {
+
+  if (!match || match.length === 1) {
+    const aside = document.querySelector('.aside:nth-child(1)');
+
+    aside.innerHTML = `
+      <div class="aside__search">
+        <img src="assets/img/magnifier.svg" alt="" height="15">
+        <label for="search">
+          <input class="aside__input" type="text" placeholder="Поиск по названию..." id="search">
+        </label>
+      </div>
+    `;
+    // console.log('aside: ', aside);
+    date.forEach(({
+      year,
+      month
+    }) => {
       const yearItem = document.createElement('div');
+  
       yearItem.classList.add('aside__item', 'tab');
       yearItem.innerHTML = `
         <input id="${year}" type="checkbox">
         <label for="${year}">${year}</label>
       `;
+
       let str = '';
-      month.forEach((el) => {
-        str += `<li><a href="#">${el}</a></li>`;
+
+      month.forEach((el, i) => {
+        str += `<li><a href="articles.html?year=${year}&month=${months.indexOf(el) + 1}">${el}</a></li>`;
       });
       const tabContent = document.createElement('section');
       tabContent.classList.add('tab-content');
       const listOfMonths = document.createElement('ul');
       listOfMonths.classList.add('flex');
-      listOfMonths.innerHTML = str ;
+      listOfMonths.innerHTML = str;
       tabContent.append(listOfMonths);
       yearItem.append(tabContent);
-      sortBtn.before(yearItem);
-      // console.log(yearItem.querySelector('.flex'));
+      aside.append(yearItem);
     })
   }
+  // }
 }
 
 function yearInObj(year, date) {
@@ -74,7 +99,37 @@ function yearInObj(year, date) {
       return date[i]
   }
   return false
+};
+
+const createStringForQuerries = (str, el) => {
+  if (el.checked) str += `${el.id},`;
+  console.log(str);
+  return str;
 }
+
+const createArrayQueriesFromString = (index) => {
+  // let str ='[';
+  let str = '';
+  document.querySelectorAll(`fieldset:nth-child(${index}) input`).forEach((el) => str = createStringForQuerries(str, el));
+
+  str = str.slice(0, str.length - 1);
+  // str += (str) ? ']' : '[]';
+  return str;
+}
+
+document.querySelector('form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const classes = createArrayQueriesFromString(1);
+  const places = createArrayQueriesFromString(2);
+  const type = createArrayQueriesFromString(3);
+
+  console.log(`http://event-archive/server/index.php/articles.php?class=${classes}&place=${places}&type=${type}`);
+  let data = fetch(`http://event-archive/server/index.php/articles.php?class=${classes}&place=${places}&type=${type}`)
+    .then(response => response.json())
+    .then(createHtml);
+});
+
 /*
 <section class="articles__item article-short">
           <div class="article-short__title">Заголовок</div>
