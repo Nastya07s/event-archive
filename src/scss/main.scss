@@ -4,6 +4,8 @@
 @import "utils/_fonts";
 @import "utils/_media";
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +17,7 @@ a {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .d-none {
@@ -63,6 +65,10 @@ body {
 .menu {
   &__item {
     margin-right: 30px;
+
+    &:nth-child(2) {
+      margin-right: 5px;
+    }
 
     &:last-child {
       margin-right: 0;

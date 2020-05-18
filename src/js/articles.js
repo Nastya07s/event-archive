@@ -28,7 +28,9 @@ function createHtml(data) {
       };
       date.push(temp);
     } else {
-      yearInObjFl.month.push(months[el.month - 1]);
+      // console.log(yearInObjFl);
+      if (!yearInObjFl.month.includes(months[el.month - 1]))
+        yearInObjFl.month.push(months[el.month - 1]);
     }
     // console.log(date);
     // date.push(obj)
