@@ -1,8 +1,29 @@
 import './scss/main.scss';
 
-let data = fetch('http://event-archive/server/index.php')
-  .then(response => response.json())
-  .then(createHtml)
+fetch('/header.html')
+  .then(response => response.text())
+  .then((header) => {
+    const headerComponent = document.createElement('header');
+    headerComponent.classList.add('header');
+    headerComponent.innerHTML = header;
+    document.querySelector('.main').before(headerComponent);
+    console.log(document.querySelector('.menu__item:nth-child(4) > a'));
+    if (sessionStorage.getItem('login')) {
+      document.querySelector('.menu__item:nth-child(3) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
+      document.querySelector('.menu__item:nth-child(4)').classList.remove('d-none');
+    } else {
+      document.querySelector('.menu__item:nth-child(3) > a').textContent = 'Войти';
+      document.querySelector('.menu__item:nth-child(4)').classList.add('d-none');
+    }
+
+    document.querySelector('.menu__item:nth-child(4)').addEventListener('click', () => {
+      sessionStorage.removeItem('login');
+    })
+
+    let data = fetch('http://event-archive/server/index.php')
+      .then(response => response.json())
+      .then(createHtml);
+  })
 
 function createHtml(data) {
   let slider = document.querySelector('.slider');
@@ -43,7 +64,7 @@ function createHtml(data) {
   slides.forEach(slide => {
     slide.addEventListener('click', resetInterval)
   });
-  let sliderCurrent = document.querySelector('.slider__current').addEventListener('click',moveToCurrentArticle);
+  let sliderCurrent = document.querySelector('.slider__current').addEventListener('click', moveToCurrentArticle);
   let current = 0;
   let looper = setInterval(function () {
     autoSlide(sliderList, data)
@@ -62,8 +83,10 @@ function createHtml(data) {
   }
 }
 
-function moveToCurrentArticle({ target }){
-  window.location.href =`/article.html?id=${target.closest('.slider__current').dataset.id}`
+function moveToCurrentArticle({
+  target
+}) {
+  window.location.href = `/article.html?id=${target.closest('.slider__current').dataset.id}`
 }
 
 function autoSlide(sliderList, data, tar) {

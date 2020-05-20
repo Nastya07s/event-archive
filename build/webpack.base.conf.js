@@ -18,6 +18,8 @@ module.exports = {
     app: PATH.src,
     articles: `${PATH.src}/js/articles`,
     article: `${PATH.src}/js/article`,    
+    login: `${PATH.src}/js/login`,    
+    addEvent: `${PATH.src}/js/addEvent`,    
   },
   output: {
     filename: `${PATH.assets}/js/[name].[hash].js`,
@@ -98,6 +100,20 @@ module.exports = {
       template: `${PATH.src}/article.html`,
       filename: './article.html',
       chunks: ['article']
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATH.src}/login.html`,
+      filename: './login.html',
+      chunks: ['login']
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATH.src}/header.html`,
+      filename: './header.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATH.src}/addEvent.html`,
+      filename: './addEvent.html',
+      chunks: ['addEvent']
     }),
     new CopyWebpackPlugin([
       { from: `${PATH.src}/img`, to: `${PATH.assets}/img` },

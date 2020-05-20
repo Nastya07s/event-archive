@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
+  <title>Архив мероприятий</title>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="wrapper header__body flex">
+      <div class="logo header__logo">
+        <a href="/" class="flex">
+          <img src="favicon.svg" alt="" width="50">
+          <div class="logo__text">Архив мероприятий</div>
+        </a>
+      </div>
+      <nav class="menu header__menu flex">
+        <div class="menu__item"><a href="articles.html">Все мероприятия</a></div>
+        <img src="./assets/img/social.svg" alt="" class="menu__item" width="20">
+        <div class="menu__item"><a href="login.html">Войти</a></div>
+      </nav>
+    </div>
+  </header>
+  <main class="main">
+    <div class="wrapper main__body flex">
+      <div class="contact">
+        <div class="contact-wrapper">
+          <header class="login-cta">
+            <h2>Войти</h2>
+          </header>
+          <form id="formLogin">
+            <div class="form-row">
+              <input type="text" required autocomplete="off" name="login">
+              <span>Логин</span>
+            </div>
+            <div class="form-row">
+              <input type="password" required autocomplete="off" name="password">
+              <span>Пароль</span>
+            </div>
+            <div class="form-row"></div>
+            <div class="form-row">
+              <button type="submit">Вход</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+
+</html>

@@ -7,10 +7,33 @@ const sortBtn = document.querySelector('.aside__button');
 
 const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 
-console.log(`http://event-archive/server/index.php/articles.php${window.location.search}`);
-let data = fetch(`http://event-archive/server/index.php/articles.php${window.location.search}`)
-  .then(response => response.json())
-  .then(createHtml);
+fetch('/header.html')
+  .then(response => response.text())
+  .then((header) => {
+    const headerComponent = document.createElement('header');
+    headerComponent.classList.add('header');
+    headerComponent.innerHTML = header;
+    document.querySelector('.main').before(headerComponent);
+    if (sessionStorage.getItem('login')) {
+      document.querySelector('.menu__item:nth-child(3) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
+      document.querySelector('.menu__item:nth-child(4)').classList.remove('d-none');
+      document.querySelector('.aside:nth-child(1)').classList.remove('d-none');
+    } else {
+      document.querySelector('.menu__item:nth-child(3) > a').textContent = 'Войти';
+      document.querySelector('.menu__item:nth-child(4)').classList.add('d-none');
+      document.querySelector('.aside:nth-child(1)').classList.add('d-none');
+    }
+
+    document.querySelector('.menu__item:nth-child(4)').addEventListener('click', () => {
+      sessionStorage.removeItem('login');
+    })
+
+
+    console.log(`http://event-archive/server/index.php/articles.php${window.location.search}`);
+    let data = fetch(`http://event-archive/server/index.php/articles.php${window.location.search}`)
+      .then(response => response.json())
+      .then(createHtml);
+  })
 
 function createHtml(data) {
   console.log(data)
@@ -54,7 +77,7 @@ function createHtml(data) {
   let match = /=/g.exec(window.location.search);
 
   if (!match || match.length === 1) {
-    const aside = document.querySelector('.aside:nth-child(1)');
+    const aside = document.querySelector('.aside:nth-child(2)');
 
     aside.innerHTML = `
       <div class="aside__search">
@@ -70,7 +93,7 @@ function createHtml(data) {
       month
     }) => {
       const yearItem = document.createElement('div');
-  
+
       yearItem.classList.add('aside__item', 'tab');
       yearItem.innerHTML = `
         <input id="${year}" type="checkbox">
