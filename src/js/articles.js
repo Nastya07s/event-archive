@@ -15,16 +15,16 @@ fetch('/header.html')
     headerComponent.innerHTML = header;
     document.querySelector('.main').before(headerComponent);
     if (sessionStorage.getItem('login')) {
-      document.querySelector('.menu__item:nth-child(3) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
-      document.querySelector('.menu__item:nth-child(4)').classList.remove('d-none');
+      document.querySelector('.menu__item:nth-child(2) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
+      document.querySelector('.menu__item:nth-child(3)').classList.remove('d-none');
       document.querySelector('.aside:nth-child(1)').classList.remove('d-none');
     } else {
-      document.querySelector('.menu__item:nth-child(3) > a').textContent = 'Войти';
-      document.querySelector('.menu__item:nth-child(4)').classList.add('d-none');
+      document.querySelector('.menu__item:nth-child(2) > a').textContent = 'Войти';
+      document.querySelector('.menu__item:nth-child(3)').classList.add('d-none');
       document.querySelector('.aside:nth-child(1)').classList.add('d-none');
     }
 
-    document.querySelector('.menu__item:nth-child(4)').addEventListener('click', () => {
+    document.querySelector('.menu__item:nth-child(3)').addEventListener('click', () => {
       sessionStorage.removeItem('login');
     })
 
@@ -163,16 +163,9 @@ document.getElementById('formSearch').addEventListener('submit', async (event) =
   let data = fetch(`http://event-archive/server/index.php/articles.php?search=${searchValue}`)
     .then(response => response.json())
     .then(createHtml);
-
-  // const classes = createArrayQueriesFromString(1);
-  // const places = createArrayQueriesFromString(2);
-  // const type = createArrayQueriesFromString(3);
-
-  // console.log(`http://event-archive/server/index.php/articles.php?class=${classes}&place=${places}&type=${type}`);
-  // let data = fetch(`http://event-archive/server/index.php/articles.php?class=${classes}&place=${places}&type=${type}`)
-  //   .then(response => response.json())
-  //   .then(createHtml);
 });
+
+document.querySelector('.addNewEvent').addEventListener('click', () => window.location.href = '/addEvent.html');
 
 /*
 <section class="articles__item article-short">

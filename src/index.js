@@ -9,14 +9,14 @@ fetch('/header.html')
     document.querySelector('.main').before(headerComponent);
     console.log(document.querySelector('.menu__item:nth-child(4) > a'));
     if (sessionStorage.getItem('login')) {
-      document.querySelector('.menu__item:nth-child(3) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
-      document.querySelector('.menu__item:nth-child(4)').classList.remove('d-none');
+      document.querySelector('.menu__item:nth-child(2) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
+      document.querySelector('.menu__item:nth-child(3)').classList.remove('d-none');
     } else {
-      document.querySelector('.menu__item:nth-child(3) > a').textContent = 'Войти';
-      document.querySelector('.menu__item:nth-child(4)').classList.add('d-none');
+      document.querySelector('.menu__item:nth-child(2) > a').textContent = 'Войти';
+      document.querySelector('.menu__item:nth-child(3)').classList.add('d-none');
     }
 
-    document.querySelector('.menu__item:nth-child(4)').addEventListener('click', () => {
+    document.querySelector('.menu__item:nth-child(3)').addEventListener('click', () => {
       sessionStorage.removeItem('login');
     })
 

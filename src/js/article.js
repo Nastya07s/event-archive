@@ -1,5 +1,11 @@
 import '../scss/main.scss';
 
+const classText = {
+  'primary': '1 - 4',
+  'middle': '5 - 8',
+  'high': '9 - 11',
+}
+
 fetch('/header.html')
   .then(response => response.text())
   .then((header) => {
@@ -8,14 +14,14 @@ fetch('/header.html')
     headerComponent.innerHTML = header;
     document.querySelector('.main').before(headerComponent);
     if (sessionStorage.getItem('login')) {
-      document.querySelector('.menu__item:nth-child(3) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
-      document.querySelector('.menu__item:nth-child(4)').classList.remove('d-none');
+      document.querySelector('.menu__item:nth-child(2) > a').textContent = `Привет, ${sessionStorage.getItem('login')}`;
+      document.querySelector('.menu__item:nth-child(3)').classList.remove('d-none');
     } else {
-      document.querySelector('.menu__item:nth-child(3) > a').textContent = 'Войти';
-      document.querySelector('.menu__item:nth-child(4)').classList.add('d-none');
+      document.querySelector('.menu__item:nth-child(2) > a').textContent = 'Войти';
+      document.querySelector('.menu__item:nth-child(3)').classList.add('d-none');
     }
 
-    document.querySelector('.menu__item:nth-child(4)').addEventListener('click', () => {
+    document.querySelector('.menu__item:nth-child(3)').addEventListener('click', () => {
       sessionStorage.removeItem('login');
     })
       
@@ -34,9 +40,25 @@ function createHtml(data) {
             <div class="article__img">
               <img src="${data[0].mainImage}" alt=""></img>
             </div>
-            <div class="">
-              <div class="article__title">${data[0].eventName}</div>
-              <div class="article__desc">${data[0].eventDesc}</div>
+            <div class="article__info flex">
+              <div>
+                <div class="article__date">
+                  <p>${data[0].date}</p>
+                  <button><img src="/assets/img/threePoints.svg" alt="" height="13"></button>
+                  <ul class="opasity-0">
+                    <li><button>Изменить</button></li>
+                    <li><button>Удалить</button></li>
+                  </ul>
+                </div>
+                
+                <div class="article__title">${data[0].eventName}</div>
+                <div class="article__desc">${data[0].eventDesc}</div>
+              </div>
+              <div class="article__properties">
+                <div class="article__property"><p>Тип: </p><p>${data[0].typeName}</p></div>
+                <div class="article__property"><p>Место проведения: </p><p>${data[0].placeName}</p></div>
+                <div class="article__property"><p>Класс: </p><p>${classText[data[0].class]}</p></div>
+              </div>
             </div>
           </div>
           <div class="gallery">
@@ -48,9 +70,18 @@ function createHtml(data) {
   <div class="">
     <img src="${data[i].image}" alt=""></img>
   </div>`
+  };
+  document.querySelector('.article__date button').addEventListener('click', ({target}) => {
+    document.querySelector('.article__date').querySelector('ul').classList.toggle('opasity-0');
+  });
+  if (sessionStorage.getItem('login')) {
+    document.querySelector('.article__date button').classList.remove('d-none');
+  } else {
+    document.querySelector('.article__date button').classList.add('d-none');
   }
-
 }
+
+
 
 // {
 /* <div class="article__body flex">
