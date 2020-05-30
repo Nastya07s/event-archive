@@ -5,6 +5,15 @@ const classText = {
   'middle': '5 - 8',
   'high': '9 - 11',
 }
+const placeText = {
+  'inside': 'В учреждении образования',
+  'outside': 'За пределами учреждения образования',
+}
+const typeText = {
+  'training': 'Учебно-воспитательные',
+  'hobby': 'Досуговые',
+  'sport': 'Спортивно-оздоровительные',
+}
 
 fetch('/header.html')
   .then(response => response.text())
@@ -25,7 +34,7 @@ fetch('/header.html')
       sessionStorage.removeItem('login');
     })
       
-    fetch(`http://event-archive/server/index.php/article/${window.location.search}`)
+    fetch(`http://event-archive/server/index.php/article${window.location.search}`)
       .then(response => response.json())
       .then(createHtml);
   })
@@ -34,6 +43,7 @@ fetch('/header.html')
 // let data =
 
 function createHtml(data) {
+  console.log(data[0]);
   let article = document.querySelector('.article');
   article.innerHTML = `
           <div class="article__body flex">
@@ -55,8 +65,8 @@ function createHtml(data) {
                 <div class="article__desc">${data[0].eventDesc}</div>
               </div>
               <div class="article__properties">
-                <div class="article__property"><p>Тип: </p><p>${data[0].typeName}</p></div>
-                <div class="article__property"><p>Место проведения: </p><p>${data[0].placeName}</p></div>
+                <div class="article__property"><p>Тип: </p><p>${typeText[data[0].typeName]}</p></div>
+                <div class="article__property"><p>Место проведения: </p><p>${placeText[data[0].placeName]}</p></div>
                 <div class="article__property"><p>Класс: </p><p>${classText[data[0].class]}</p></div>
               </div>
             </div>
@@ -79,6 +89,9 @@ function createHtml(data) {
   } else {
     document.querySelector('.article__date button').classList.add('d-none');
   }
+  document.querySelector('.article__date ul li:first-child button').addEventListener('click', () => {
+    window.location.href = `/updateEvent.html${window.location.search}`
+  })
 }
 
 

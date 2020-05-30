@@ -20,6 +20,7 @@ module.exports = {
     article: `${PATH.src}/js/article`,    
     login: `${PATH.src}/js/login`,    
     addEvent: `${PATH.src}/js/addEvent`,    
+    updateEvent: `${PATH.src}/js/updateEvent`,    
   },
   output: {
     filename: `${PATH.assets}/js/[name].[hash].js`,
@@ -114,6 +115,11 @@ module.exports = {
       template: `${PATH.src}/addEvent.html`,
       filename: './addEvent.html',
       chunks: ['addEvent']
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATH.src}/updateEvent.html`,
+      filename: './updateEvent.html',
+      chunks: ['updateEvent']
     }),
     new CopyWebpackPlugin([
       { from: `${PATH.src}/img`, to: `${PATH.assets}/img` },

@@ -33,17 +33,49 @@ fetch('/header.html')
     });
   });
 
-  document.getElementById('formAdd').addEventListener('submit', async ({
-    target
-  }) => {
-    event.preventDefault();
-    fetch(`http://event-archive/server/index.php/addEvent.php`, {
-        method: 'POST',
-        body: new FormData(target)
-      })
-      .then((response) => response.text())
-      .then((text) => {
-        if (text = 'success')
-        window.location.href = '/articles.html';
-      });
-  });
+document.getElementById('formAdd').addEventListener('submit', async ({
+  target
+}) => {
+  event.preventDefault();
+
+  fetch(`http://event-archive/server/index.php/addEvent.php`, {
+      method: 'POST',
+      body: new FormData(target)
+    })
+    .then((response) => response.text())
+    .then((text) => {
+      window.location.href = '/articles.html';
+    });
+});
+
+// function createHtml(data) {
+//   const articleBody = document.querySelector('.article__body');
+//   articleBody.querySelector('.article__img > img').src = data[0].mainImage;
+
+//   const inputs = articleBody.querySelectorAll('.add__input');
+//   console.log('data[0]: ', data[0]);
+//   inputs[0].value = data[0].eventName;
+//   inputs[1].value = data[0].typeName;
+//   inputs[2].value = data[0].placeName;
+//   inputs[3].value = data[0].class;
+//   inputs[4].value = data[0].date;
+//   document.querySelector('.add__desc textarea').value = data[0].eventDesc;
+//   let gallery = document.querySelector('.gallery');
+//   data.forEach(({
+//     image
+//   }) => {
+//     const div = document.createElement('div');
+//     const img = document.createElement('img');
+//     img.src = image;
+//     div.append(img);
+//     console.log(div);
+//     gallery.insertAdjacentElement('beforeend', div);
+//   })
+//   const inputId = document.createElement('input');
+//   inputId.name = 'id';
+//   inputId.type = 'hidden';
+//   inputId.value = window.location.search.replace('?id=', '');
+//   gallery.insertAdjacentElement('afterend', inputId)
+
+//   // console.log(articleBody.querySelector('.add_desc textarea'));
+// }
